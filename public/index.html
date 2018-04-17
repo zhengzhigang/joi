@@ -1,0 +1,592 @@
+<html>
+	<head>
+		<style type="text/css">
+			.container {
+				max-width: 1024px;
+				margin: auto;
+			}
+			.h2 {
+				font-size: 20px;
+				font-weight: bold;
+			}
+			.h2-label {
+				font-size: 20px;
+			}
+			.content {
+				padding-left: 30px;
+			}
+			.code, pre {
+				padding: 15px 20px;
+				background-color: #fff2f2;
+				border-radius: 4px;
+			}
+			pre .text {
+				color: red;
+			}
+			dt {
+				font-size: 16px;
+				font-weight: bold;
+			}
+			dd {
+				margin-left: 30px;
+			}
+		</style>
+	</head>
+  <body>
+    <div id="app" style="width:200px;margin: auto;padding-top: 20px;">
+    	<form style="margin-bottom: 15px;">
+    		<div style="margin-bottom: 10px;">
+    			<label>姓名：</label>
+    			<input id="name" type="text" name="name">
+    		</div>
+    		<div style="margin-bottom: 10px;">
+    			<label>电话：</label>
+    			<input id="phone" type="text" name="phone">
+    		</div>
+    		<div>
+    			<label>邮箱：</label>
+    			<input id="email" type="text" name="email">
+    		</div>
+    	</form>
+    	<div class="a" style="color:red;font-size:14px;margin-bottom: 10px;"></div>
+    	<button id="submit">提交</button>
+    </div>
+
+    <div class="container">
+    	<h2>date:<label class="h2-label">日期格式校验</label></h2>
+    	<div class="content">
+    		<dl>
+    			<dt>date.min(date)</dt>
+    			<dd>
+    				指定最早的日期
+    				<pre class="code">
+const schema = Joi.date().min('1-1-1974');
+    				</pre>
+    			</dd>
+    			<dt>date.max(date)</dt>
+    			<dd>
+    				指定最晚的日期
+    				<pre class="code">
+const schema = Joi.date().max('1-1-2018');
+    				</pre>
+    			</dd>
+    			<dt>date.iso()</dt>
+    			<dd>
+    				ISO 8601 日期格式
+    				<pre class="code">
+const schema = Joi.date().iso();
+    				</pre>
+    			</dd>
+    			<dt>date.timestamp([type])</dt>
+    			<dd>
+    				时间戳格式
+    				<pre class="code">
+const schema = Joi.date().timestamp();
+    				</pre>
+    			</dd>
+    		</dl>
+    	</div>
+    	<h2>number:<label class="h2-label">数字格式校验</label></h2>
+    	<div class="content">
+    		<dl>
+    			<dt>number.min(limit)</dt>
+    			<dd>
+    				最小长度
+    				<pre class="code">
+const schema = Joi.number().min(2);
+    				</pre>
+    			</dd>
+    			<dt>number.max(limit)</dt>
+    			<dd>
+    				最大长度
+    				<pre class="code">
+const schema = Joi.number().min(10);
+    				</pre>
+    			</dd>
+    			<dt>number.greater(limit)</dt>
+    			<dd>
+    				必须大于指定的值
+    				<pre class="code">
+const schema = Joi.number().greater(5);
+    				</pre>
+    			</dd>
+    			<dt>number.less(limit)</dt>
+    			<dd>
+    				必须小于指定的值
+    				<pre class="code">
+const schema = Joi.number().less(5);
+    				</pre>
+    			</dd>
+    			<dt>number.integer()</dt>
+    			<dd>
+    				整数
+    				<pre class="code">
+const schema = Joi.number().integer();
+    				</pre>
+    			</dd>
+    			<dt>number.precision(limit) ???</dt>
+    			<dd>
+    				保留到小数点后指定位数
+    				<pre class="code">
+const schema = Joi.number().precision(2)
+    				</pre>
+    			</dd>
+    			<dt>
+    				number.multiple(base)
+    			</dt>
+    			<dd>
+    				指定值的倍数
+    				<pre class="code">
+const schema = Joi.number().multiple(3);
+    				</pre>
+    			</dd>
+    			<dt>
+    				number.positive()
+    			</dt>
+    			<dd>
+    				正数
+    				<pre class="code">
+const schema = Joi.number().positive();
+    				</pre>
+    			</dd>
+    			<dt>
+    				number.negative()
+    			</dt>
+    			<dd>
+    				负数
+    				<pre class="code">
+const schema = Joi.number().negative();
+    				</pre>
+    			</dd>
+    		</dl>
+    	</div>
+    	<h2>string:<label class="h2-label">字符串校验</label></h2>
+    	<div class="content">
+    		<dl>
+    			<dt>string.insensitive()</dt>
+    			<dd>
+    				匹配任何形式的字符串
+    				<pre class="code">
+const schema = Joi.string().valid('a').insensitive();
+    				</pre>
+    			</dd>
+    			<dt>string.min(limit, [encoding])</dt>
+    			<dd>
+    				最小长度
+    				<pre class="code">
+const schema = Joi.string().min(2);
+    				</pre>
+    			</dd>
+    			<dt>string.max(limit, [encoding])</dt>
+    			<dd>
+    				最大长度
+    				<pre class="code">
+const schema = Joi.string().max(10);
+    				</pre>
+    			</dd>
+    			<dt>string.truncate([enabled])</dt>
+    			<dd>
+    				截断
+    				<pre class="code">
+const schema = Joi.string().max(5).truncate();
+    				</pre>
+    			</dd>
+    			<dt>string.creditCard()</dt>
+    			<dd>
+    				银行卡
+    				<pre class="code">
+const schema = Joi.string().creditCard();
+    				</pre>
+    			</dd>
+    			<dt>string.length(limit, [encoding])</dt>
+    			<dd>
+    				长度必须为指定位数
+    				<pre class="code">
+const schema = Joi.string().length(5);
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.regex(pattern, [name | options])
+    			</dt>
+    			<dd>
+    				自定义校验格式（正则）
+    				<pre class="code">
+const schema = Joi.string().regex(/^[abc]+$/);
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.replace(pattern, replacement)
+    			</dt>
+    			<dd>
+    				已给定的模式替换校验的字符串
+    				<pre class="code">
+const schema = Joi.string().replace(/b/gi, 'x');
+schema.validate('abBc', (err, value) => {
+    // value 备替换为 'axxc'
+});
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.alphanum()
+    			</dt>
+    			<dd>
+    				字母或数字
+    				<pre class="code">
+const schema = Joi.string().alphanum();
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.token()
+    			</dt>
+    			<dd>
+    				字母或数字或下划线_
+    				<pre class="code">
+const schema = Joi.string().token();
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.email()
+    			</dt>
+    			<dd>
+    				邮箱
+    				<pre class="code">
+const schema = Joi.string().email();
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.ip([options])
+    			</dt>
+    			<dd>
+    				邮箱
+    				<!-- <div class="code"> -->
+    					<pre>
+const schema = Joi.string().ip({
+  version: [ // ipv4, ipv6, ipvfuture
+    'ipv4',  
+    'ipv6'
+  ],
+  cidr: 'required' // optional, required, forbidden
+});
+    					</pre>
+    				<!-- </div> -->
+    			</dd>
+    			<dt>
+    				string.hex()
+    			</dt>
+    			<dd>
+    				十六进制
+    				<pre class="code">
+    					const schema = Joi.string().hex();
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.lowercase()
+    			</dt>
+    			<dd>
+    				将value转化为小写
+    				<pre>
+const schema = Joi.string().lowercase();
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.uppercase()
+    			</dt>
+    			<dd>
+    				将value转化为大写
+    				<pre>
+const schema = Joi.string().uppercase();
+    				</pre>
+    			</dd>
+    			<dt>
+    				string.trim()
+    			</dt>
+    			<dd>
+    				去除前后的空格
+    				<pre>
+const schema = Joi.string().trim();
+    				</pre>
+    			</dd>
+    		</dl>
+    	</div>
+
+
+    	<h2>object:<label class="h2-label">继承any()</label></h2>
+    	<div class="content">
+    		<dl>
+    			<dt>object.keys([schema])</dt>
+    			<dd>
+    				创建验证模式
+    				<pre class="code">
+const base = Joi.object().keys({
+    a: Joi.number(),
+    b: Joi.string()
+});
+// Validate keys a, b and c.
+const extended = base.keys({
+    c: Joi.boolean()
+});
+
+						<p class="text">三种定义验证模式的方式</p>
+// js纯对象,不是一个schema对象，不能通过validate直接使用
+const schema = {
+    a: Joi.string(),
+    b: Joi.number()
+};
+
+// Joi.object()
+const schema = Joi.object({
+    a: Joi.string(),
+    b: Joi.number()
+});
+
+// Joi.object().keys()，可以后续添加更多您的验证
+const schema = Joi.object().keys({
+    a: Joi.string(),
+    b: Joi.number()
+});
+
+    				</pre>
+    			</dd>
+    			<dt>object.min(limit)</dt>
+    			<dd>
+    				至少几个验证对象
+    				<pre class="code">
+const schema = Joi.object().min(2);
+    				</pre>
+    			</dd>
+    			<dt>object.max(limit)</dt>
+    			<dd>
+    				最多几个验证对象
+    				<pre class="code">
+const schema = Joi.object().max(2);
+    				</pre>
+    			</dd>
+    			<dt>object.length(limit)</dt>
+    			<dd>
+    				验证对象必须为指定个数
+    				<pre class="code">
+const schema = Joi.object().length(5);
+    				</pre>
+    			</dd>
+    			<dt>object.pattern(regex, schema) ？？？</dt>
+    			<dd>
+    				为keys指定一个验证规则
+    				<pre class="code">
+const schema = Joi.object({
+    a: Joi.string()
+}).pattern(/\w\d/, Joi.boolean());
+    				</pre>
+    			</dd>
+    			<dt>object.and(peers)</dt>
+    			<dd>
+    				and关系，如果其中一个存在，则两个需同时存在
+    				<pre class="code">
+const schema = Joi.object().keys({
+    a: Joi.any(),
+    b: Joi.any()
+}).and('a', 'b');
+    				</pre>
+    			</dd>
+    			<dt>
+    				object.nand(peers)
+    			</dt>
+    			<dd>
+    				not关系，如果其中一个存在，则另一个一定不能存在
+    				<pre class="code">
+const schema = Joi.object().keys({
+    a: Joi.any(),
+    b: Joi.any()
+}).nand('a', 'b');
+    				</pre>
+    			</dd>
+    			<dt>
+    				object.or(peers)
+    			</dt>
+    			<dd>
+    				or关系
+    				<pre class="code">
+const schema = Joi.object().keys({
+    a: Joi.any(),
+    b: Joi.any()
+}).or('a', 'b');
+    				</pre>
+    			</dd>
+    			<dt>
+    				object.xor(peers)
+    			</dt>
+    			<dd>
+    				不能同时存在
+    				<pre class="code">
+const schema = Joi.object().keys({
+    a: Joi.any(),
+    b: Joi.any()
+}).xor('a', 'b');
+    				</pre>
+    			</dd>
+    			<dt>
+    				object.with(key, peers)
+    			</dt>
+    			<dd>
+    				指定的键必须同时存在
+    				<pre>
+const schema = Joi.object().keys({
+    a: Joi.any(),
+    b: Joi.any()
+}).with('a', 'b');
+    				</pre>
+    			</dd>
+    			<dt>
+    				object.rename(from, to, [options])
+    			</dt>
+    			<dd>
+    				重命名key
+    				<pre>
+const object = Joi.object().keys({
+    a: Joi.number()
+}).rename('b', 'a');
+
+object.validate({ b: 5 }, (err, value) => { });
+    				</pre>
+    			</dd>
+    		</dl>
+    	</div>
+    	<h2>any</h2>
+    	<div class="content">
+    		<dl>
+    			<dt>any.valid(value) - aliases: only, equal</dt>
+    			<dd>
+    				只允许验证某些值value
+    				<pre>
+const schema = {
+    a: Joi.any().valid('a'),
+    b: Joi.any().valid('b', 'B'),
+    c: Joi.any().valid(['c', 'C'])
+};
+    				</pre>
+    			</dd>
+    			<dt>any.allow(value)</dt>
+    			<dd>
+    				将规定的值添加到验证的白名单，不论是否符合验证模式
+    				<pre>
+const schema = {
+    a: Joi.any().allow('a'),
+    b: Joi.any().allow('b', 'B'),
+    c: Joi.any().allow(['c', 'C'])
+};
+    				</pre>
+    			</dd>
+    			<dt>any.invalid(value) - aliases: disallow, not</dt>
+    			<dd>
+    				将规定的值添加到验证的黑名单
+    				<pre>
+const schema = {
+    a: Joi.any().invalid('a'),
+    b: Joi.any().invalid('b', 'B'),
+    c: Joi.any().invalid(['c', 'C'])
+};
+    				</pre>
+    			</dd>
+    			<dt>any.required() - aliases: exist</dt>
+    			<dd>
+    				必须的
+    				<pre>
+const schema = Joi.any().required();
+    				</pre>
+    			</dd>
+    			<dt>any.optional()</dt>
+    			<dd>
+    				可选的
+    				<pre>
+const schema = Joi.any().optional();
+    				</pre>
+    			</dd>
+    			<dt>any.strip()</dt>
+    			<dd>
+    				删除值，结果里不会反悔此值
+    				<pre>
+const schema = Joi.object({
+    username: Joi.string(),
+    password: Joi.string().strip()
+});
+
+schema.validate({ username: 'test', password: 'hunter2' }, (err, value) => {
+    // value = { username: 'test' }
+});
+
+const schema = Joi.array().items(Joi.string(), Joi.any().strip());
+
+schema.validate(['one', 'two', true, false, 1, 2], (err, value) => {
+    // value = ['one', 'two']
+});
+    				</pre>
+    			</dd>
+    			<dt>any.description(desc) ？？？</dt>
+    			<dd>
+    				给验证的key添加注释或描述
+    				<pre>
+const schema = Joi.number().description('这个key值匹配数字');
+    				</pre>
+    			</dd>
+    			<dt>any.example(value)</dt>
+    			<dd>
+    				添加验证的例子
+    				const schema = Joi.string().min(4).example('abcd');
+    			</dd>
+    			<dt>any.default([value, [description]])</dt>
+    			<dd>
+    				若果有验证模式，但是没有添加验证值，则添加一个默认值
+    				<pre>
+const schema = Joi.object({
+    username: Joi.string().default('wqeqwe'),// 此处有验证模式
+    phone: Joi.string().min(4).example('abcd')
+});
+
+$('#submit').on('click', function () {
+	// 这里没有需要验证的值
+    Joi.validate(
+      {phone: $('input[name=phone]').val()},
+      schema,{
+        language: jlanguage
+      },
+      function (err,value) {
+          $('.a').html(err);
+          console.log(value)
+      });
+});
+    				</pre>
+    			</dd>
+    			<dt>any.concat(schema)</dt>
+    			<dd>
+    				合并验证模式
+    				<pre>
+const a = Joi.string().valid('a');
+const b = Joi.string().valid('b');
+const ab = a.concat(b);
+    				</pre>
+    			</dd>
+    			<dt>any.label(name)</dt>
+    			<dd>
+    				重写错误信息中的name
+    				<pre>
+const schema = {
+    first_name: Joi.string().label('姓名')
+};
+    				</pre>
+    			</dd>
+    			<dt>any.raw(isRaw)</dt>
+    			<dd>
+    				输出原始值
+    				<pre>
+const timestampSchema = Joi.date().timestamp();
+timestampSchema.validate('12376834097810'); // { error: null, value: Sat Mar 17 2362 04:28:17 GMT-0500 (CDT) }
+
+const rawTimestampSchema = Joi.date().timestamp().raw();
+rawTimestampSchema.validate('12376834097810'); // { error: null, value: '12376834097810' }
+    				</pre>
+    			</dd>
+    		</dl>
+    	</div>
+    </div>
+    <script src="/dist/main.js"></script>
+  </body>
+</html>
